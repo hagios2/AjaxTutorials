@@ -1,0 +1,29 @@
+[
+    {
+        "id" : 1,
+        "name": "George Turckson",
+        "email": "hagioswilson@gmail.com",
+        "age": 59
+    },
+    
+    {
+        "id" : 2,
+        "name": "George Turckson",
+        "email": "hagioswilson@gmail.com",
+        "age": 59
+    },
+    
+    {
+        "id" : 3,
+        "name": "George Turckson",
+        "email": "hagioswilson@gmail.com",
+        "age": 59
+    },
+    
+    {
+        "id" : 4,
+        "name": "George Turckson",
+        "email": "hagioswilson@gmail.com",
+        "age": 59
+    }
+]
