@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> 
+    <title>Making ajax request from php</title>
+</head>
+<body>
+  <div class="container">
+
+    <div id="chatarea">
+
+    </div>
+
+        <form id="messageForm">
+
+            <div class="form-group">
+
+                <input class="form-control" width="50%" type="text" id="user" name="user"><br>
+    
+                <textarea class="form-control" width="50%" name="message" id="message" cols="30" rows="10"></textarea><br>
+        
+                <button class="btn btn-primary" id="post-btn">submit</button>
+
+            </div>
+
+        </form>
+
+
+        <script>
+
+      /*       if(document.getElementById('message').value == '')
+            {
+                document.getElementById('post-btn').disabled = true;
+            }else{
+
+                document.getElementById('post-btn').disabled = false;
+            } */
+
+            document.getElementById('messageForm').addEventListener('submit', sendMessages);
+
+            function sendMessages(e)
+            {
+                e.preventDefault();
+
+                var name = 'user='+ document.getElementById('user').value;
+
+                document.getElementById('user').value = '';
+
+                var msg = 'message='+ document.getElementById('message').value;
+
+                document.getElementById('message').value = '';
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('POST', 'people.php', true)
+
+                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+                xhr.onload = function(){
+
+                    console.log(this.responseText)
+                } 
+
+                xhr.onerror = function(){
+
+                    console.log('An error occuried');
+                }
+
+                xhr.send(name+'&'+msg);
+
+                getMessages();
+            }
+
+            //use the id to get the conversation to display in the chat div
+            // submit the the form with ajax and the getfunction to get all updated messages 
+            //to be displayed 
+
+            function getMessages()
+            {
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', 'people.php', true);
+
+                xhr.onload = function(){
+
+                    if(this.status == 200)
+                    {
+                        var messages = JSON.parse(this.responseText);
+
+                        var output = '';
+
+                        for(i in messages)
+                        {
+                            output += '<div>' +
+                            
+                            '<small>' + messages[i].users +'</small>' +
+
+                            '<span>' + messages[i].messages + '</small>'
+
+                            '</div>';
+                        }
+
+                        //clear everthing 
+                        document.getElementById('chatarea').innerHTML = '';
+
+                        ///fill with updated messages from the database
+                        document.getElementById('chatarea').innerHTML = output;
+        
+                    }
+                }
+
+                xhr.onerror = function(){
+
+                    console.log('Error occured');
+                }
+
+                xhr.send();
+            }
+
+        </script>
+
+  </div>
+
+</body>
+</html>

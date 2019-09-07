@@ -14,11 +14,17 @@
 
         <button id="btn2">users</button>
 
+        <a class="btn btn-primary" href="ajax3.html">Go external</a>
+
     </div>
     
-    <h4 id="user"></h4>
+    <h4> User</h4>
 
-    <h4 id="users"></h4>
+    <div id="user"></div><br>
+
+    <h4>users</h4>
+
+    <div id="users"></div>
 
     <script>
         document.getElementById('btn1').addEventListener('click', loaduser);
@@ -89,7 +95,7 @@
                         "</ul>";
                     }
 
-                    document.getElementById('user').innerHTML = output;
+                    document.getElementById('users').innerHTML = output;
 
                 }
             }

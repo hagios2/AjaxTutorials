@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>External Api</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+
+    <h3 class="title">Github users</h3>
+
+    <div id="users"></div>
+
+    <button class="btn btn-primary" id="btn">Get all users</button>
+
+    <a href="ajax4.html">Load registered people</a>
+
+
+    <script>
+        document.getElementById('btn').addEventListener('click', loadallusers);
+
+        function loadallusers()
+        {
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', 'https://api.github.com/users', true);
+
+            xhr.onload = function(){
+
+                if(this.status == 200)
+                {
+                    //console.log(this.response);
+                    
+                    var users = JSON.parse(this.responseText);
+
+                    var output = '';
+
+                    for(var i in users)
+                    {
+                        output += '<div>' +
+
+                            '<img src="'+users[i].avatar_url+'" class="rounded-circle" width="80" height="80"> '+
+
+                            '<ul>' +
+                                '<li>ID:'+users[i].id+'</li>'+
+
+                                '<li>Login:'+users[i].login+'</li>'+
+                            '</ul> </div>'
+                            ;
+
+                    }
+
+                document.getElementById('users').innerHTML = output;
+                }
+
+            }
+
+            xhr.onerror = function(){
+
+                console.log('there was an error');
+
+            }
+        
+            xhr.send();
+        }
+
+
+    </script>
+    
+</body>
+</html>
